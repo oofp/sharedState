@@ -10,11 +10,11 @@ module SharedState
 
 import Prelude
 
-import Control.Concurrent.STM.TVar
-import Control.Concurrent.STM
-import Control.Monad.Reader.Class
-import Control.Monad.State.Class
-import Control.Monad.IO.Class
+import Control.Concurrent.STM.TVar (TVar)
+import Control.Concurrent.STM (atomically, readTVar,writeTVar)
+import Control.Monad.Reader.Class (MonadReader,ask)
+import Control.Monad.State.Class (MonadState, state)
+import Control.Monad.IO.Class (MonadIO, liftIO)
 
 class (Monad m) => MutableWrapper w m where
   update :: (s -> (a , s)) -> w s -> m a
