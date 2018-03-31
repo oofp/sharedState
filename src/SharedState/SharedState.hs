@@ -33,25 +33,3 @@ instance (MonadIO m) => MutableWrapper TVar m where
       let (a, s1) = f s
       writeTVar ts s1
       return a
-
-{-
-newtype TVarState s a = TVarIntReader (ReaderT (TVar s) IO a)
-  deriving (Functor, Applicative, Monad, MonadReader (TVar s), MonadIO)
-
-addState :: Int -> (MonadState Int m) => m Int
-addState inc = state (\i -> (i+inc,i*inc))
-
-newtype TVarIntReader a = TVarIntReader (ReaderT (TVar Int) IO a)
-  deriving (Functor, Applicative, Monad, MonadReader (TVar Int), MonadIO)
-
-runTVarIntReader :: forall b. TVarIntReader b -> IO b
-runTVarIntReader (TVarIntReader rd) = do
-  zero <- newTVarIO (0::Int)
-  runReaderT rd zero
-
-adder2 :: TVarIntReader Int
-adder2  = addState 2
-
-adder2_10 :: TVarIntReader Int
-adder2_10 = put 1 >> replicateM 10 adder2 >> get
--}
