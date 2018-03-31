@@ -24,7 +24,7 @@ newtype TVarMonadState s a = TVarMonadState (ReaderT (TVar s) IO a)
  deriving (Functor, Applicative, Monad, MonadReader (TVar s), MonadIO)
 ```
 
-as result it also became instance of `MonadState s IO` so following functions are available:
+as result it also became instance of `MonadState s IO` so the following functions are available:
 - modify
 - get
 - put
